@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CategoryMenu">
+    <Key>
+      <PropertyRef Name="CategoryMenuID" />
+    </Key>
+    <Property Name="CategoryMenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Menu" Relationship="Self.FK_Menu_CategoryMenu" FromRole="CategoryMenu" ToRole="Menu" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="MenuItemID" />
+    </Key>
+    <Property Name="MenuItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DishesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Ingredients" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="CategoryMenuID" Type="Int32" />
+    <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Calories" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CategoryMenu" Relationship="Self.FK_Menu_CategoryMenu" FromRole="Menu" ToRole="CategoryMenu" />
+    <NavigationProperty Name="Zakaz" Relationship="Self.FK_Zakaz_Menu" FromRole="Menu" ToRole="Zakaz" />
+  </EntityType>
+  <EntityType Name="NomerStolika">
+    <Key>
+      <PropertyRef Name="NomerStolikaID" />
+    </Key>
+    <Property Name="NomerStolikaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nomer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Zakaz" Relationship="Self.FK_Zakaz_NomerStolika" FromRole="NomerStolika" ToRole="Zakaz" />
+  </EntityType>
+  <EntityType Name="SostavZakaza">
+    <Key>
+      <PropertyRef Name="SostavZakazaID" />
+    </Key>
+    <Property Name="SostavZakazaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ZakazID" Type="Int32" Nullable="false" />
+    <Property Name="MenuItemID" Type="Int32" Nullable="false" />
+    <Property Name="Kolichestvo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sotrudniki">
+    <Key>
+      <PropertyRef Name="SotrudnikiID" />
+    </Key>
+    <Property Name="SotrudnikiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Zakaz" Relationship="Self.FK_Zakaz_Sotrudniki" FromRole="Sotrudniki" ToRole="Zakaz" />
+  </EntityType>
+  <EntityType Name="SposobOplat">
+    <Key>
+      <PropertyRef Name="SposobOplatID" />
+    </Key>
+    <Property Name="SposobOplatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SposobOplatiName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Zakaz" Relationship="Self.FK_Zakaz_SposobOplat1" FromRole="SposobOplat" ToRole="Zakaz" />
+  </EntityType>
+  <EntityType Name="StatusZakaza">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Zakaz" Relationship="Self.FK_Zakaz_StatusZakaza" FromRole="StatusZakaza" ToRole="Zakaz" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SotrudnikiID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Zakaz">
+    <Key>
+      <PropertyRef Name="ZakazID" />
+    </Key>
+    <Property Name="ZakazID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SotrudnikID" Type="Int32" />
+    <Property Name="MenuItemID" Type="Int32" />
+    <Property Name="DishesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Kolichestvo" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DataZakaza" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="SposobOplatID" Type="Int32" />
+    <Property Name="SposobOplatiName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NomerStolikaID" Type="Int32" />
+    <Property Name="Nomer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CategoryMenuID" Type="Int32" />
+    <Property Name="SostavZakazaID" Type="Int32" />
+    <NavigationProperty Name="Menu" Relationship="Self.FK_Zakaz_Menu" FromRole="Zakaz" ToRole="Menu" />
+    <NavigationProperty Name="NomerStolika" Relationship="Self.FK_Zakaz_NomerStolika" FromRole="Zakaz" ToRole="NomerStolika" />
+    <NavigationProperty Name="Sotrudniki" Relationship="Self.FK_Zakaz_Sotrudniki" FromRole="Zakaz" ToRole="Sotrudniki" />
+    <NavigationProperty Name="SposobOplat" Relationship="Self.FK_Zakaz_SposobOplat1" FromRole="Zakaz" ToRole="SposobOplat" />
+    <NavigationProperty Name="StatusZakaza" Relationship="Self.FK_Zakaz_StatusZakaza" FromRole="Zakaz" ToRole="StatusZakaza" />
+  </EntityType>
+  <Association Name="FK_Menu_CategoryMenu">
+    <End Role="CategoryMenu" Type="Self.CategoryMenu" Multiplicity="0..1" />
+    <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategoryMenu">
+        <PropertyRef Name="CategoryMenuID" />
+      </Principal>
+      <Dependent Role="Menu">
+        <PropertyRef Name="CategoryMenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakaz_Menu">
+    <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+    <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuItemID" />
+      </Principal>
+      <Dependent Role="Zakaz">
+        <PropertyRef Name="MenuItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakaz_NomerStolika">
+    <End Role="NomerStolika" Type="Self.NomerStolika" Multiplicity="0..1" />
+    <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NomerStolika">
+        <PropertyRef Name="NomerStolikaID" />
+      </Principal>
+      <Dependent Role="Zakaz">
+        <PropertyRef Name="NomerStolikaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakaz_Sotrudniki">
+    <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="0..1" />
+    <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sotrudniki">
+        <PropertyRef Name="SotrudnikiID" />
+      </Principal>
+      <Dependent Role="Zakaz">
+        <PropertyRef Name="SotrudnikID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakaz_SposobOplat1">
+    <End Role="SposobOplat" Type="Self.SposobOplat" Multiplicity="0..1" />
+    <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SposobOplat">
+        <PropertyRef Name="SposobOplatID" />
+      </Principal>
+      <Dependent Role="Zakaz">
+        <PropertyRef Name="SposobOplatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakaz_StatusZakaza">
+    <End Role="StatusZakaza" Type="Self.StatusZakaza" Multiplicity="0..1" />
+    <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusZakaza">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="Zakaz">
+        <PropertyRef Name="StatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Balashova_DREntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CategoryMenu" EntityType="Self.CategoryMenu" />
+    <EntitySet Name="Menu" EntityType="Self.Menu" />
+    <EntitySet Name="NomerStolika" EntityType="Self.NomerStolika" />
+    <EntitySet Name="SostavZakaza" EntityType="Self.SostavZakaza" />
+    <EntitySet Name="Sotrudniki" EntityType="Self.Sotrudniki" />
+    <EntitySet Name="SposobOplat" EntityType="Self.SposobOplat" />
+    <EntitySet Name="StatusZakaza" EntityType="Self.StatusZakaza" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <EntitySet Name="Zakaz" EntityType="Self.Zakaz" />
+    <AssociationSet Name="FK_Menu_CategoryMenu" Association="Self.FK_Menu_CategoryMenu">
+      <End Role="CategoryMenu" EntitySet="CategoryMenu" />
+      <End Role="Menu" EntitySet="Menu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakaz_Menu" Association="Self.FK_Zakaz_Menu">
+      <End Role="Menu" EntitySet="Menu" />
+      <End Role="Zakaz" EntitySet="Zakaz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakaz_NomerStolika" Association="Self.FK_Zakaz_NomerStolika">
+      <End Role="NomerStolika" EntitySet="NomerStolika" />
+      <End Role="Zakaz" EntitySet="Zakaz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakaz_Sotrudniki" Association="Self.FK_Zakaz_Sotrudniki">
+      <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+      <End Role="Zakaz" EntitySet="Zakaz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakaz_SposobOplat1" Association="Self.FK_Zakaz_SposobOplat1">
+      <End Role="SposobOplat" EntitySet="SposobOplat" />
+      <End Role="Zakaz" EntitySet="Zakaz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakaz_StatusZakaza" Association="Self.FK_Zakaz_StatusZakaza">
+      <End Role="StatusZakaza" EntitySet="StatusZakaza" />
+      <End Role="Zakaz" EntitySet="Zakaz" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

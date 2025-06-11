@@ -1,0 +1,36 @@
+﻿<Page x:Class="KP_Balashova_.PageMain.PageMenuAdds"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KP_Balashova_.PageMain"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageMenuAdds">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="37*"/>
+            <ColumnDefinition Width="123*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Наименование" Style="{StaticResource TextBlock}" Grid.ColumnSpan="2" Height="33" HorizontalAlignment="Left"/>
+        <TextBlock Text="Ингредиенты" Grid.Row="1" Style="{StaticResource TextBlock}" Grid.ColumnSpan="2" Height="33" HorizontalAlignment="Left"/>
+        <TextBlock Text="Цена" Grid.Row="2" Style="{StaticResource TextBlock}" Grid.ColumnSpan="2" Height="33" HorizontalAlignment="Left"/>
+        <TextBlock Text="Каллории" Grid.Row="3" Style="{StaticResource TextBlock}" Grid.ColumnSpan="2" Height="33" HorizontalAlignment="Left"/>
+        <TextBox  Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBox}" MaxLength="50" Text="{Binding DishesName}" Width="300"/>
+        <TextBox  Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBox}" Text="{Binding Ingredients}" Width="300"/>
+        <TextBox  Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBox}" Text="{Binding Price}" Width="300"/>
+        <TextBox  Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBox}" Text="{Binding Calories}" Width="300"/>
+        <Button   Grid.Row="4" Content="Сохранить" Style="{StaticResource ButtonT}"  Name="BtnSave" Click="BtnSave_Click"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Button Grid.Row="4" Content="Назад" Style="{StaticResource ButtonY}" HorizontalAlignment="Left"  VerticalAlignment="Stretch"  Click="Button_Click"/>
+    </Grid>
+    
+</Page>

@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище DRModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CategoryMenu">
+    <Key>
+      <PropertyRef Name="CategoryMenuID" />
+    </Key>
+    <Property Name="CategoryMenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="MenuItemID" />
+    </Key>
+    <Property Name="MenuItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DishesName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Ingredients" Type="text" Nullable="false" />
+    <Property Name="Price" Type="int" Nullable="false" />
+    <Property Name="CategoryMenuID" Type="int" />
+    <Property Name="Photo" Type="nvarchar(max)" />
+    <Property Name="Calories" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NomerStolika">
+    <Key>
+      <PropertyRef Name="NomerStolikaID" />
+    </Key>
+    <Property Name="NomerStolikaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nomer" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SostavZakaza">
+    <Key>
+      <PropertyRef Name="SostavZakazaID" />
+    </Key>
+    <Property Name="SostavZakazaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ZakazID" Type="int" Nullable="false" />
+    <Property Name="MenuItemID" Type="int" Nullable="false" />
+    <Property Name="Kolichestvo" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Price" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sotrudniki">
+    <Key>
+      <PropertyRef Name="SotrudnikiID" />
+    </Key>
+    <Property Name="SotrudnikiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Position" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SposobOplat">
+    <Key>
+      <PropertyRef Name="SposobOplatID" />
+    </Key>
+    <Property Name="SposobOplatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SposobOplatiName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatusZakaza">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SotrudnikiID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Zakaz">
+    <Key>
+      <PropertyRef Name="ZakazID" />
+    </Key>
+    <Property Name="ZakazID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SotrudnikID" Type="int" />
+    <Property Name="MenuItemID" Type="int" />
+    <Property Name="DishesName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Kolichestvo" Type="int" Nullable="false" />
+    <Property Name="Price" Type="money" Nullable="false" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="StatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DataZakaza" Type="datetime" Nullable="false" />
+    <Property Name="SposobOplatID" Type="int" />
+    <Property Name="SposobOplatiName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NomerStolikaID" Type="int" />
+    <Property Name="Nomer" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CategoryMenuID" Type="int" />
+    <Property Name="SostavZakazaID" Type="int" />
+  </EntityType>
+  <Association Name="FK_Menu_CategoryMenu">
+    <End Role="CategoryMenu" Type="Self.CategoryMenu" Multiplicity="0..1" />
+    <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategoryMenu">
+        <PropertyRef Name="CategoryMenuID" />
+      </Principal>
+      <Dependent Role="Menu">
+        <PropertyRef Name="CategoryMenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakaz_Menu">
+    <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+    <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuItemID" />
+      </Principal>
+      <Dependent Role="Zakaz">
+        <PropertyRef Name="MenuItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakaz_NomerStolika">
+    <End Role="NomerStolika" Type="Self.NomerStolika" Multiplicity="0..1" />
+    <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NomerStolika">
+        <PropertyRef Name="NomerStolikaID" />
+      </Principal>
+      <Dependent Role="Zakaz">
+        <PropertyRef Name="NomerStolikaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakaz_Sotrudniki">
+    <End Role="Sotrudniki" Type="Self.Sotrudniki" Multiplicity="0..1" />
+    <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sotrudniki">
+        <PropertyRef Name="SotrudnikiID" />
+      </Principal>
+      <Dependent Role="Zakaz">
+        <PropertyRef Name="SotrudnikID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakaz_SposobOplat1">
+    <End Role="SposobOplat" Type="Self.SposobOplat" Multiplicity="0..1" />
+    <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SposobOplat">
+        <PropertyRef Name="SposobOplatID" />
+      </Principal>
+      <Dependent Role="Zakaz">
+        <PropertyRef Name="SposobOplatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zakaz_StatusZakaza">
+    <End Role="StatusZakaza" Type="Self.StatusZakaza" Multiplicity="0..1" />
+    <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusZakaza">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="Zakaz">
+        <PropertyRef Name="StatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище DRModelContainer">
+    <EntitySet Name="CategoryMenu" EntityType="Self.CategoryMenu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NomerStolika" EntityType="Self.NomerStolika" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SostavZakaza" EntityType="Self.SostavZakaza" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sotrudniki" EntityType="Self.Sotrudniki" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SposobOplat" EntityType="Self.SposobOplat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StatusZakaza" EntityType="Self.StatusZakaza" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Zakaz" EntityType="Self.Zakaz" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Menu_CategoryMenu" Association="Self.FK_Menu_CategoryMenu">
+      <End Role="CategoryMenu" EntitySet="CategoryMenu" />
+      <End Role="Menu" EntitySet="Menu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakaz_Menu" Association="Self.FK_Zakaz_Menu">
+      <End Role="Menu" EntitySet="Menu" />
+      <End Role="Zakaz" EntitySet="Zakaz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakaz_NomerStolika" Association="Self.FK_Zakaz_NomerStolika">
+      <End Role="NomerStolika" EntitySet="NomerStolika" />
+      <End Role="Zakaz" EntitySet="Zakaz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakaz_Sotrudniki" Association="Self.FK_Zakaz_Sotrudniki">
+      <End Role="Sotrudniki" EntitySet="Sotrudniki" />
+      <End Role="Zakaz" EntitySet="Zakaz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakaz_SposobOplat1" Association="Self.FK_Zakaz_SposobOplat1">
+      <End Role="SposobOplat" EntitySet="SposobOplat" />
+      <End Role="Zakaz" EntitySet="Zakaz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zakaz_StatusZakaza" Association="Self.FK_Zakaz_StatusZakaza">
+      <End Role="StatusZakaza" EntitySet="StatusZakaza" />
+      <End Role="Zakaz" EntitySet="Zakaz" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
